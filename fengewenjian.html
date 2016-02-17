@@ -14,7 +14,29 @@
   
 <script type="text/javascript">
 <!--
-http://blog.sina.com.cn/s/blog_66b005600101dex8.html
+
+var uploadFile = document.getElementById("uploadFile").files[0];
+
+var sliceSize = 1024;
+var start = 0,end = 0;
+var totalSize = uploadFile.size;
+
+while(start < totalSize){
+	start = end;
+	end = start + sliceSize;
+	
+	//表单提交对象
+	var xhr = new XMLHttpRequest();
+	var fd = new FormData();
+	//分割文件
+	var part = uploadFile.slice(start, end);
+	console.log(part);
+	//提交
+	fd.append("name", part);
+	xhr.open("post", "uploadFile.action", false);
+	xhr.send(fd);
+}
+
 //-->
 </script>
 
